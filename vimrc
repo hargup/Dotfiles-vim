@@ -138,6 +138,15 @@ nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " jj For Qicker Escaping between normal and editing mode.
 "inoremap jj <ESC>
 
+" It uses Control space as Omni Completion and Keyword completion when
+" it is not available.
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
+
 " system settings
 set lazyredraw          " no redraws in macros
 set confirm             " get a dialog when :q, :w, or :wq fails
@@ -149,6 +158,12 @@ set history=50          " keep 50 lines of command history
 " Working with split screen nicely
 " Resize Split When the window is resized"
 au VimResized * :wincmd =
+
+" Code folding settings go here:
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=2         "this is just what i use
 
 
 " Wildmenu completion "
