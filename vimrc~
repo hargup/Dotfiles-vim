@@ -266,8 +266,7 @@ nnoremap <F9> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$']
 
 let g:jedi#popup_on_dot = 0
-let g:Tlist_Use_Right_Window = 1
-let Tlist_Use_SingleClick = 1
+
 
 " Mini Buffer some settigns."
 let g:miniBufExplMapWindowNavVim = 1
