@@ -51,7 +51,7 @@ set lazyredraw
 set matchtime=3
 
 "Changing Leader Key
-let mapleader = "/"
+let mapleader = ";"
 
 " Set title to window
 set title 
@@ -113,31 +113,20 @@ au FocusLost * :wa
 ",W Command to remove white space from a file.
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" ,ft Fold tag, helpful for HTML editing.
+" ;ft Fold tag, helpful for HTML editing.
 nnoremap <leader>ft vatzf
 
-" ,q Re-hardwrap Paragraph
+" ;q Re-hardwrap Paragraph
 nnoremap <leader>q gqip
 
-" ,v Select just pasted text.
+" ;v Select just pasted text.
 nnoremap <leader>v V`]
 
-" ,ev Shortcut to edit .vimrc file on the fly on a vertical window.
+" ;ev Shortcut to edit .vimrc file on the fly on a vertical window.
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " jj For Qicker Escaping between normal and editing mode.
 "inoremap jj <ESC>
-
-" It uses Control space as Omni Completion and Keyword completion when
-" it is not available.
-set omnifunc=syntaxcomplete#Complete
-
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-\ "\<lt>C-n>" :
-\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
 
 " system settings
 set lazyredraw          " no redraws in macros
@@ -158,13 +147,6 @@ set nofoldenable        "dont fold by default
 set foldlevel=2         "this is just what i use
 
 set completeopt =longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
 
 " Wildmenu completion "
 set wildmenu
@@ -230,53 +212,43 @@ endif
 " ========== Plugin Settings =========="
 
 " -------------------------------------------
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-" let g:acp_enableAtStartup = 0
-" " Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" " Set minimum syntax keyword length.
-" let g:neocomplcache_min_syntax_length = 3
-"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+" Settings for Ultisnips
+
+function! g:UltiSnips_Complete()
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips_JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+let g:UltiSnipsExpandTrigger="<TAB>"
+let g:UltiSnipsJumpForwardTrigger="<TAB>"
+
+" ------------------------------------------
+
 inoremap 00 <Esc>A
 
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-" 
-" " Plugin key-mappings.
-" inoremap <expr><C-g>     neocomplcache#undo_completion()
-" inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function()
-"   return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-" endfunction
-
-" --------------------------------------------------
 " Mapping to NERDTree
 nnoremap <F9> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$']
 
-let g:jedi#popup_on_dot = 0
 let g:Tlist_Use_Right_Window = 1
 let Tlist_Use_SingleClick = 1
 let g:dwm_map_keys = 0
+
 " Mini Buffer some settigns."
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
