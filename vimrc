@@ -46,7 +46,7 @@ set number
 set norelativenumber
 
 "set undofile
-set shell=/bin/bash
+set shell=/bin/zsh
 set lazyredraw
 set matchtime=3
 
@@ -90,15 +90,12 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
-
-" Rope settings."
-inoremap <leader>j <ESC>:RopeGotoDefinition<cr>
 
 " Get Rid of stupid Goddamned help keys
 inoremap <F1> <ESC>
@@ -133,12 +130,14 @@ nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " It uses Control space as Omni Completion and Keyword completion when
 " it is not available.
-"inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-"\ "\<lt>C-n>" :
-"\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-"\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-"\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-"imap <C-@> <C-Space>
+set omnifunc=syntaxcomplete#Complete
+
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 " system settings
 set lazyredraw          " no redraws in macros
@@ -157,6 +156,14 @@ set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=2         "this is just what i use
+
+set completeopt =longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 
 " Wildmenu completion "
@@ -225,14 +232,15 @@ endif
 " -------------------------------------------
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
+" let g:acp_enableAtStartup = 0
+" " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
+" " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+" " Set minimum syntax keyword length.
+" let g:neocomplcache_min_syntax_length = 3
+"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+inoremap 00 <Esc>A
 
 " Enable heavy features.
 " Use camel case completion.
@@ -246,19 +254,19 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
         \ }
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
+" 
+" " Plugin key-mappings.
+" inoremap <expr><C-g>     neocomplcache#undo_completion()
+" inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   return neocomplcache#smart_close_popup() . "\<CR>"
   " For no inserting <CR> key.
   "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
+" endfunction
 
 " --------------------------------------------------
 " Mapping to NERDTree
