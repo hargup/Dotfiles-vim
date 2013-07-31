@@ -22,12 +22,10 @@ set expandtab
 set encoding=utf-8
 set scrolloff=3
 set autoindent
-"set smartindent
 set smarttab
 set showmode
 set showcmd
-set hidden                        "Important setting
-set hlsearch                      " Highlight matches.
+"set hlsearch                      " Highlight matches.
 set nobackup        " Don't make a backup before overwriting a file.
 set incsearch                     " Highlight matches as you type.
 set wildmode=list:longest
@@ -41,7 +39,6 @@ set laststatus=2
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
-"set relativenumber
 set number
 set norelativenumber
 
@@ -62,7 +59,7 @@ set dictionary=/usr/share/dict/words
 set backupskip=/tmp/*,/private/tmp/*"
 
 " Enable Mouse
-set mouse=v
+set mouse=a
 
 syntax on
 
@@ -97,11 +94,6 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-" Get Rid of stupid Goddamned help keys
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
 " Map : to ; also in command mode.
 "nnoremap ; :
 
@@ -135,6 +127,8 @@ set nobackup            " no backup~ files.
 set viminfo='20,\"500   " remember copy registers after quitting in the .viminfo file -- 20 jump links, regs up to 500 lines'
 set hidden              " remember undo after quitting
 set history=50          " keep 50 lines of command history
+set clipboard=unnamedplus   " Sets the unnamed registers to allow easy copypaste
+
 
 " Working with split screen nicely
 " Resize Split When the window is resized"
@@ -144,7 +138,7 @@ au VimResized * :wincmd =
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
-set foldlevel=2         "this is just what i use
+set foldlevel=1         "this is just what i use
 
 set completeopt =longest,menuone
 
@@ -172,9 +166,6 @@ augroup line_return
         \ endif
 augroup END
 
-nnoremap g; g;zz
-
-imap Vgcc gcc
 imap gcc gc
 
 " =========== END Basic Vim Settings ===========
@@ -183,26 +174,19 @@ imap gcc gc
 " =========== Gvim Settings =============
 
 " Removing scrollbars
-if has("gui_running")
-    set guitablabel=%-0.12t%M
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions+=a
-    set guioptions-=m
-    colo mustang
-    set listchars=tab:▸\ ,eol:¬         " Invisibles using the Textmate style
-else
-    set t_Co=256
-    colorschem mustang
-endif
-
+"if has("gui_running")
+set t_Co=256
+colorscheme molokai
+"endif
+let g:airline_powerline_fonts=1
+set ttimeoutlen=50
 " Special Settings for Consoles
 "if !has("gui_running")
 "    set t_Co=256
 "    colorschem mustang
 "endif
-
+autocmd Filetype cpp nmap <buffer> <F5> :SCCompileAF -DLOCAL -O3 -Wall
+autocmd Filetype cpp nmap <buffer> <F4> :SCCompileAF -DLOCAL -O3 -Wall
 " Source the vimrc file after saving it
 "autocmd bufwritepost .vimrc source ~/.vimrc
 
@@ -210,6 +194,10 @@ endif
 
 
 " ========== Plugin Settings =========="
+
+let g:dwm_map_keys = 1
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " -------------------------------------------
 " Settings for Ultisnips
@@ -233,10 +221,17 @@ au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:U
 
 let g:UltiSnipsExpandTrigger="<TAB>"
 let g:UltiSnipsJumpForwardTrigger="<TAB>"
+let g:UltiSnipsJumpBackwardTrigger="<leader>b"
 
 " ------------------------------------------
 
-inoremap 00 <Esc>A
+inoremap II <Esc>I
+inoremap AA <Esc>A
+inoremap OO <Esc>O
+inoremap CC <Esc>C
+inoremap SS <Esc>S
+inoremap DD <Esc>dd
+inoremap UU <Esc>u
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -250,18 +245,16 @@ let Tlist_Use_SingleClick = 1
 let g:dwm_map_keys = 0
 
 " Mini Buffer some settigns."
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
+"let g:miniBufExplMapWindowNavVim = 1
+"let g:miniBufExplMapWindowNavArrows = 1
+"let g:miniBufExplMapCTabSwitchBufs = 1
+"let g:miniBufExplModSelTarget = 1
 
 " Taglist toogle Key binding
 nmap <F8> :TlistToggle<CR>
-
-" Snipmate remap settings. It's binding overwritten standard
-" bindings.
-" Snipmate using bellow VIM's default keys, just unmap it.
-
+nmap <F4> :SCCompile<cr>
+nmap <F5> :SCCompileRun<cr>
+nmap <F6> :SCViewResult<cr>
 
 " =========== END Plugin Settings =========="
 "
