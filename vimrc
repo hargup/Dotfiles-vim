@@ -185,8 +185,8 @@ set ttimeoutlen=50
 "    set t_Co=256
 "    colorschem mustang
 "endif
-autocmd Filetype cpp nmap <buffer> <F5> :SCCompileRun -DLOCAL -O3 -Wall
-autocmd Filetype cpp nmap <buffer> <F4> :SCCompileAF -DLOCAL -O3 -Wall
+autocmd Filetype cpp nmap <buffer> <F5> :SCCompileRun -DLOCAL -O3 -Wall <CR>
+autocmd Filetype cpp nmap <buffer> <F4> :SCCompileAF -DLOCAL -O3 -Wall <CR>
 " Source the vimrc file after saving it
 "autocmd bufwritepost .vimrc source ~/.vimrc
 
