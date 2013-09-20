@@ -4,6 +4,8 @@
 set nocompatible
 set modelines=0
 
+ set rtp+=~/.vim/vundle.git/ 
+"call vundle#rc()
 " Pathogen settings.
 filetype on
 call pathogen#runtime_append_all_bundles()
@@ -32,6 +34,7 @@ set wildmode=list:longest
 set visualbell          "No Beeping
 set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location 
 set cursorline
+set cursorcolumn " For the cross hair"
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -43,7 +46,7 @@ set number
 set norelativenumber
 
 "set undofile
-set shell=/bin/zsh
+"set shell=/bin/zsh
 set lazyredraw
 set matchtime=3
 
@@ -70,7 +73,6 @@ set smartcase                    " But case-sensitive if expression contains a c
 set gdefault
 set showmatch
 
-
 " Make Vim to handle long lines nicely.
 set wrap
 set textwidth=79
@@ -81,16 +83,9 @@ set formatoptions=qrn1
 "set list
 set listchars=tab:▸\ ,eol:¬
 
-" Naviagations using keys up/down/left/right
-" Disabling default keys to learn the hjkl
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
+" autogeneration of ctags
+au BufWritePost *.c,*.cpp,*.h,*py silent! !ctags -R --fields=+l &
+
 nnoremap j gj
 nnoremap k gk
 
@@ -168,6 +163,9 @@ augroup END
 
 imap gcc gc
 
+" CrossHair"
+" hi CursorLine cterm=NONE ctermbg=235
+
 " =========== END Basic Vim Settings ===========
 
 
@@ -202,36 +200,36 @@ let g:ctrlp_cmd = 'CtrlP'
 " -------------------------------------------
 " Settings for Ultisnips
 
-function! g:UltiSnips_Complete()
-    call UltiSnips_ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips_JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-
-let g:UltiSnipsExpandTrigger="<TAB>"
-let g:UltiSnipsJumpForwardTrigger="<TAB>"
-let g:UltiSnipsJumpBackwardTrigger="<leader>b"
-
-" ------------------------------------------
-
-inoremap II <Esc>I
-inoremap AA <Esc>A
-inoremap OO <Esc>O
-inoremap CC <Esc>C
-inoremap SS <Esc>S
-inoremap DD <Esc>dd
-inoremap UU <Esc>u
+"function! g:UltiSnips_Complete()
+"    call UltiSnips_ExpandSnippet()
+"    if g:ulti_expand_res == 0
+"        if pumvisible()
+"            return "\<C-n>"
+"        else
+"            call UltiSnips_JumpForwards()
+"            if g:ulti_jump_forwards_res == 0
+"               return "\<TAB>"
+"            endif
+"        endif
+"    endif
+"    return ""
+"endfunction
+"
+"au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+"
+"let g:UltiSnipsExpandTrigger="<TAB>"
+"let g:UltiSnipsJumpForwardTrigger="<TAB>"
+"let g:UltiSnipsJumpBackwardTrigger="<leader>b"
+"
+"" ------------------------------------------
+"
+"inoremap II <Esc>I
+"inoremap AA <Esc>A
+"inoremap OO <Esc>O
+"inoremap CC <Esc>C
+"inoremap SS <Esc>S
+"inoremap DD <Esc>dd
+"inoremap UU <Esc>u
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
