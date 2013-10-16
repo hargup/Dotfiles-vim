@@ -86,8 +86,14 @@ set listchars=tab:▸\ ,eol:¬
 " autogeneration of ctags
 au BufWritePost *.c,*.cpp,*.h,*py silent! !ctags -R --fields=+l &
 
+" Make vim work nice with wrapped text "
 nnoremap j gj
 nnoremap k gk
+nnoremap $ g$
+nnoremap ^ g^
+
+" Insert a blank line above the cursorlin
+" nnoremap <CTRL>-N O<ESC>
 
 " Map : to ; also in command mode.
 "nnoremap ; :
