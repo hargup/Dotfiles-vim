@@ -4,7 +4,9 @@
 set nocompatible
 set modelines=0
 
- set rtp+=~/.vim/vundle.git/ 
+set autoread
+
+ set rtp+=~/.vim/vundle.git/
 "call vundle#rc()
 " Pathogen settings.
 filetype on
@@ -32,7 +34,7 @@ set nobackup        " Don't make a backup before overwriting a file.
 set incsearch                     " Highlight matches as you type.
 set wildmode=list:longest
 set visualbell          "No Beeping
-set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location 
+set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
 set cursorline
 set cursorcolumn " For the cross hair"
 set ttyfast
@@ -42,6 +44,10 @@ set laststatus=2
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
+" Show trailing whitespace only after some text (ignore empty lines)"
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
 set number
 set norelativenumber
 
@@ -50,11 +56,29 @@ set norelativenumber
 set lazyredraw
 set matchtime=3
 
+" Additions from  OSCON 2013: \"More Instantly Better Vim\" - Damian Conway
+
+"====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
+
+    " exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+    " set list
+
+"====[ Mappings to activate spell-checking alternatives ]================
+
+    nmap  ;s     :set invspell spelllang=en<CR>
+    nmap  ;ss    :set    spell spelllang=en-basic<CR>
+
+    " To create the en-basic (or any other new) spelling list:
+    "
+    "     :mkspell  ~/.vim/spell/en-basic  basic_english_words.txt
+    "
+    " See :help mkspell
+
 "Changing Leader Key
 let mapleader = ";"
 
 " Set title to window
-set title 
+set title
 " Dictionary path, from which the words are being looked up.
 set dictionary=/usr/share/dict/words
 
@@ -92,11 +116,16 @@ nnoremap k gk
 nnoremap $ g$
 nnoremap ^ g^
 
-" Insert a blank line above the cursorlin
-" nnoremap <CTRL>-N O<ESC>
+" Move around splits with <C-[hjkl]> "
+" credit: https://github.com/mrnugget/vimconfig/blob/master/vimrc
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
-" Map : to ; also in command mode.
-"nnoremap ; :
+"Little tinkering with braces
+autocmd Filetype cpp inoremap { {<RETURN>}<ESC>O
+autocmd Filetype c inoremap { {<RETURN>}<ESC>O
 
 " Set vim to save the file on focus out.
 au FocusLost * :wa
@@ -117,9 +146,6 @@ nnoremap <leader>v V`]
 
 " ;ev Shortcut to edit .vimrc file on the fly on a vertical window.
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-
-" jj For Qicker Escaping between normal and editing mode.
-"inoremap jj <ESC>
 
 " system settings
 set lazyredraw          " no redraws in macros
@@ -167,10 +193,6 @@ augroup line_return
         \ endif
 augroup END
 
-imap gcc gc
-
-" CrossHair"
-" hi CursorLine cterm=NONE ctermbg=235
 
 " =========== END Basic Vim Settings ===========
 
@@ -179,6 +201,16 @@ imap gcc gc
 
 " Removing scrollbars
 "if has("gui_running")
+
+" Change the font to Hermit
+if has('gui_running')
+    set guifont=hermit
+endif
+
+"Entering Blank lines
+nmap <S-Enter> O<Esc>j
+nmap <C-Enter> o<Esc>k
+
 set t_Co=256
 colorscheme molokai
 "endif
@@ -189,14 +221,16 @@ set ttimeoutlen=50
 "    set t_Co=256
 "    colorschem mustang
 "endif
-autocmd Filetype cpp nmap <buffer> <F5> :SCCompileRun -DLOCAL -O3 -Wall <CR>
+autocmd Filetype cpp nmap <buffer> <F5> :SCCompileRun -DLOCAL -O3 -Wall -Wextra -pedantic<CR>
 autocmd Filetype cpp nmap <buffer> <F4> :SCCompileAF -DLOCAL -O3 -Wall <CR>
 " Source the vimrc file after saving it
 "autocmd bufwritepost .vimrc source ~/.vimrc
 
 " ========== END Gvim Settings ==========
 
-
+" ========== YouCompleteMe Settings -----"
+ 
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " ========== Plugin Settings =========="
 
 let g:dwm_map_keys = 1
@@ -229,13 +263,6 @@ let g:ctrlp_cmd = 'CtrlP'
 "
 "" ------------------------------------------
 "
-"inoremap II <Esc>I
-"inoremap AA <Esc>A
-"inoremap OO <Esc>O
-"inoremap CC <Esc>C
-"inoremap SS <Esc>S
-"inoremap DD <Esc>dd
-"inoremap UU <Esc>u
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
