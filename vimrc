@@ -46,7 +46,7 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*Cap
 
 " Show trailing whitespace only after some text (ignore empty lines)"
 highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+Filetype py match ExtraWhitespace /\s\+$/
 
 set number
 set norelativenumber
@@ -58,21 +58,10 @@ set matchtime=3
 
 " Additions from  OSCON 2013: \"More Instantly Better Vim\" - Damian Conway
 
-"====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
-
-    " exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
-    " set list
-
 "====[ Mappings to activate spell-checking alternatives ]================
 
     nmap  ;s     :set invspell spelllang=en<CR>
     nmap  ;ss    :set    spell spelllang=en-basic<CR>
-
-    " To create the en-basic (or any other new) spelling list:
-    "
-    "     :mkspell  ~/.vim/spell/en-basic  basic_english_words.txt
-    "
-    " See :help mkspell
 
 "Changing Leader Key
 let mapleader = ";"
