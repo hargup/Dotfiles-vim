@@ -7,7 +7,6 @@ set modelines=0
 set autoread
 
  set rtp+=~/.vim/vundle.git/
-"call vundle#rc()
 " Pathogen settings.
 filetype on
 call pathogen#runtime_append_all_bundles()
@@ -29,6 +28,7 @@ set autoindent
 set smarttab
 set showmode
 set showcmd
+
 "set hlsearch                      " Highlight matches.
 set nobackup        " Don't make a backup before overwriting a file.
 set incsearch                     " Highlight matches as you type.
@@ -41,18 +41,17 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
+
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
 " Show trailing whitespace only after some text (ignore empty lines)"
 highlight ExtraWhitespace ctermbg=red guibg=red
-Filetype py match ExtraWhitespace /\s\+$/
+match ExtraWhitespace /\s\+$/
 
 set number
 set norelativenumber
 
-"set undofile
-"set shell=/bin/zsh
 set lazyredraw
 set matchtime=3
 
@@ -188,9 +187,6 @@ augroup END
 
 " =========== Gvim Settings =============
 
-" Removing scrollbars
-"if has("gui_running")
-
 " Change the font to Hermit
 if has('gui_running')
     set guifont=hermit
@@ -206,75 +202,25 @@ colorscheme molokai
 let g:airline_powerline_fonts=1
 set ttimeoutlen=50
 " Special Settings for Consoles
-"if !has("gui_running")
-"    set t_Co=256
-"    colorschem mustang
-"endif
-autocmd Filetype cpp nmap <buffer> <F5> :SCCompileRun -DLOCAL -O3 -Wall -Wextra -pedantic<CR>
-autocmd Filetype cpp nmap <buffer> <F4> :SCCompileAF -DLOCAL -O3 -Wall <CR>
-" Source the vimrc file after saving it
-"autocmd bufwritepost .vimrc source ~/.vimrc
+
+" Easy tab navigation
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
+nnoremap <A-0> 10gt
 
 " ========== END Gvim Settings ==========
 
-" ========== YouCompleteMe Settings -----"
- 
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" ========== Plugin Settings =========="
-
-let g:dwm_map_keys = 1
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-" -------------------------------------------
-" Settings for Ultisnips
-
-"function! g:UltiSnips_Complete()
-"    call UltiSnips_ExpandSnippet()
-"    if g:ulti_expand_res == 0
-"        if pumvisible()
-"            return "\<C-n>"
-"        else
-"            call UltiSnips_JumpForwards()
-"            if g:ulti_jump_forwards_res == 0
-"               return "\<TAB>"
-"            endif
-"        endif
-"    endif
-"    return ""
-"endfunction
-"
-"au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-"
-"let g:UltiSnipsExpandTrigger="<TAB>"
-"let g:UltiSnipsJumpForwardTrigger="<TAB>"
-"let g:UltiSnipsJumpBackwardTrigger="<leader>b"
-"
-"" ------------------------------------------
-"
-
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-
-" Mapping to NERDTree
-nnoremap <F9> :NERDTreeToggle<cr>
-let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$']
-
-let g:Tlist_Use_Right_Window = 1
-let Tlist_Use_SingleClick = 1
-let g:dwm_map_keys = 0
-
-" Mini Buffer some settigns."
-"let g:miniBufExplMapWindowNavVim = 1
-"let g:miniBufExplMapWindowNavArrows = 1
-"let g:miniBufExplMapCTabSwitchBufs = 1
-"let g:miniBufExplModSelTarget = 1
-
-" Taglist toogle Key binding
-nmap <F8> :TlistToggle<CR>
-nmap <F4> :SCCompile<cr>
-nmap <F5> :SCCompileRun<cr>
-nmap <F6> :SCViewResult<cr>
-
-" =========== END Plugin Settings =========="
-"
