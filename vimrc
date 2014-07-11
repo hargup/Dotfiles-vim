@@ -1,5 +1,4 @@
 " ========== Vim Basic Settings ============="
-" Make vim incompatbile to vi.
 
 set nocompatible
 set modelines=0
@@ -41,6 +40,12 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
+
+" no swap file
+set noswapfile
+
+"map v to Visual Block
+nnoremap v <C-v>
 
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
@@ -210,6 +215,7 @@ nnoremap <C-t>     :tabnew<CR>
 inoremap <C-S-tab> <Esc>:tabprevious<CR>i
 inoremap <C-tab>   <Esc>:tabnext<CR>i
 inoremap <C-t>     <Esc>:tabnew<CR>
+inoremap <C-w>     <Esc>:q!<CR>
 
 nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
@@ -223,4 +229,3 @@ nnoremap <A-9> 9gt
 nnoremap <A-0> 10gt
 
 " ========== END Gvim Settings ==========
-
