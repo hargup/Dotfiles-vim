@@ -44,9 +44,6 @@ set laststatus=2
 " no swap file
 set noswapfile
 
-"map v to Visual Block
-nnoremap v <C-v>
-
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
@@ -134,9 +131,6 @@ nnoremap <leader>ft vatzf
 " ;q Re-hardwrap Paragraph
 nnoremap <leader>q gqip
 
-" ;v Select just pasted text.
-nnoremap <leader>v V`]
-
 " ;ev Shortcut to edit .vimrc file on the fly on a vertical window.
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
@@ -186,6 +180,30 @@ augroup line_return
         \ endif
 augroup END
 
+" Easy tab navigation
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+nnoremap <C-S-tab> <Esc>:tabprevious<CR>i
+nnoremap <C-tab>   <Esc>:tabnext<CR>i
+nnoremap <C-t>     <Esc>:tabnew<CR>
+nnoremap <C-w>     <Esc>:q!<CR>
+nnoremap <C-S-w>     <Esc>:qa!<CR>
+
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-5> 5gt
+nnoremap <A-6> 6gt
+nnoremap <A-7> 7gt
+nnoremap <A-8> 8gt
+nnoremap <A-9> 9gt
+nnoremap <A-0> 10gt
+
+" creating splits
+" nnoremap <leader>vs <C-w>v
+" nnoremap <leader>s <C-w>s
 
 " =========== END Basic Vim Settings ===========
 
@@ -198,8 +216,8 @@ if has('gui_running')
 endif
 
 "Entering Blank lines
-nmap <S-Enter> O<Esc>j
-nmap <C-Enter> o<Esc>k
+nnoremap <S-Enter> O<Esc>j
+nnoremap <C-Enter> o<Esc>k
 
 set t_Co=256
 colorscheme molokai
@@ -208,24 +226,5 @@ let g:airline_powerline_fonts=1
 set ttimeoutlen=50
 " Special Settings for Consoles
 
-" Easy tab navigation
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-inoremap <C-tab>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
-inoremap <C-w>     <Esc>:q!<CR>
-
-nnoremap <A-1> 1gt
-nnoremap <A-2> 2gt
-nnoremap <A-3> 3gt
-nnoremap <A-4> 4gt
-nnoremap <A-5> 5gt
-nnoremap <A-6> 6gt
-nnoremap <A-7> 7gt
-nnoremap <A-8> 8gt
-nnoremap <A-9> 9gt
-nnoremap <A-0> 10gt
 
 " ========== END Gvim Settings ==========
