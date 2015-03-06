@@ -108,13 +108,6 @@ nnoremap k gk
 nnoremap $ g$
 nnoremap ^ g^
 
-" Move around splits with <C-[hjkl]> "
-" credit: https://github.com/mrnugget/vimconfig/blob/master/vimrc
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
 "Little tinkering with braces
 autocmd Filetype cpp inoremap { {<RETURN>}<ESC>O
 autocmd Filetype c inoremap { {<RETURN>}<ESC>O
