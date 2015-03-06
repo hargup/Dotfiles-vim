@@ -20,6 +20,8 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+au FileType ruby setl sw=2 sts=2 et
+
 " More Common Settings.
 set encoding=utf-8
 set scrolloff=3
