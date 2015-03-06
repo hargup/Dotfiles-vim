@@ -207,7 +207,7 @@ nnoremap <C-0> 10gt
 
 " Change the font to Hermit
 if has('gui_running')
-    set guifont=hermit
+    set guifont=hermit\ 11
 endif
 
 "Entering Blank lines
