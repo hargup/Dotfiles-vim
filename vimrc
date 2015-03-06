@@ -192,6 +192,10 @@ nnoremap <C-8> 8gt
 nnoremap <C-9> 9gt
 nnoremap <C-0> 10gt
 
+" Syntastic settings
+" let g:syntastic_python_checkers = ['pylint']
+" let g:syntastic_python_exec = '/home/hargup/anaconda/envs/py3.4/bin/python'
+
 " creating splits
 " nnoremap <leader>vs <C-w>v
 " nnoremap <leader>s <C-w>s
