@@ -183,7 +183,7 @@ call plug#end()
 
 " Key (re)mapping {
     "
-    let mapleader=','
+    let mapleader=';'
     set pastetoggle=<F2>
 
     " Windows like movements for long lines with wrap enabled:
