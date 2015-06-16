@@ -118,6 +118,8 @@ call plug#end()
     " set t_RV=
     set title
     set cursorline
+    " Hightlight column
+    set cursorcolumn
     set viminfo='20,\"500
     set hidden
     set history=100
