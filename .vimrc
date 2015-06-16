@@ -12,7 +12,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomtom/quickfixsigns_vim'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'laktek/distraction-free-writing-vim'
 Plug 'Valloric/YouCompleteMe', {'do': './install.sh'}
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
