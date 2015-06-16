@@ -420,3 +420,6 @@ call plug#end()
 "grammer check
 nmap <leader>l :LanguageToolCheck<CR>
 nmap <leader>ll :LanguageToolClear<CR>
+
+" autogeneration of ctags
+au BufWritePost *.c,*.cpp,*.h,*py silent! !ctags -R --fields=+l &
