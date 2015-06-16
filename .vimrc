@@ -208,7 +208,7 @@ call plug#end()
     nmap <Leader>tp :tabprevious<cr>
     nmap <Leader>tc :tabclose<cr>
 
-    noremap <leader>ss :call StripWhitespace()<CR>
+    noremap <leader>W :call StripWhitespace()<CR>
 " }
 
 " Functions {
