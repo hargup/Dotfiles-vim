@@ -26,6 +26,7 @@ Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/MatchTagAlways'
 Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/LanguageTool'
 " on-demand loading
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 Plug 'scrooloose/nerdtree', {'on':  'NERDTreeToggle'}
@@ -163,6 +164,9 @@ call plug#end()
     augroup END
 
     let g:omni_complete=1
+
+    let g:languagetool_jar='/home/hargup/210fs/LanguageTool-2.8/languagetool-commandline.jar'
+
 
     set wildchar=<Tab> wildmenu wildmode=full
     set complete=.,w,t
@@ -413,3 +417,7 @@ call plug#end()
     autocmd User GoyoLeave nested call <SID>goyo_leave()
     " }
 " }
+
+"grammer check
+nmap <leader>l :LanguageToolCheck<CR>
+nmap <leader>ll :LanguageToolClear<CR>
