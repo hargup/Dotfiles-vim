@@ -99,6 +99,7 @@ call plug#end()
     set backupdir=~/.vimtmp
     set directory=~/.vimtmp
 
+    set nowritebackup
     set list listchars=tab:▸\ ,trail:·
     set tags=./tags;/
     set mps+=<:>
