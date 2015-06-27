@@ -96,11 +96,8 @@ call plug#end()
     " backups and temporary buffers. This is a better solution in case we don't
     " want our current buffer to be destroyed due to any IOError.
     "
-    " set backupdir=~/.vimtmp
-    " set directory=~/.vimtmp
-    set nobackup
-    set nowritebackup " Writes the buffer to the same file
-    set noswapfile
+    set backupdir=~/.vimtmp
+    set directory=~/.vimtmp
 
     set list listchars=tab:▸\ ,trail:·
     set tags=./tags;/
