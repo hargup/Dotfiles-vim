@@ -16,16 +16,16 @@ Plug 'Valloric/YouCompleteMe', {'do': './install.sh'}
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
-Plug 'Shougo/unite.vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-surround'
-Plug 'othree/html5.vim'
-Plug 'mattn/gist-vim'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/MatchTagAlways'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/LanguageTool'
+Plug 'davidhalter/jedi-vim'
+Plug 'shinokada/dragvisuals.vim'
+Plug 'Shougo/unite.vim'
+Plug 'joker1007/vim-markdown-quote-syntax'
+Plug 'ivanov/vim-ipython'
 " on-demand loading
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 Plug 'scrooloose/nerdtree', {'on':  'NERDTreeToggle'}
@@ -60,13 +60,13 @@ call plug#end()
         " Always switch to the current file directory
     endif
 
-    if filereadable(expand("~/.vim/plugged/vim-colors-solarized/colors/solarized.vim"))
-        let g:solarized_termcolors=256
-        let g:solarized_contrast="normal"
-        let g:solarized_visibility="normal"
-        color solarized
-        set bg=dark
-    endif
+    " if filereadable(expand("~/.vim/plugged/vim-colors-solarized/colors/solarized.vim"))
+    "     let g:solarized_termcolors=256
+    "     let g:solarized_contrast="normal"
+    "     let g:solarized_visibility="normal"
+    "     color solarized
+    "     set bg=dark
+    " endif
 
     if has('cmdline_info')
         set ruler                   " Show the ruler
@@ -144,6 +144,7 @@ call plug#end()
 
         autocmd FileType text setlocal spell
         autocmd FileType haskell,puppet,ruby,yml,html setlocal expandtab shiftwidth=2 softtabstop=2
+        autocmd FileType markdown set nonumber
 
         " When editing a file, always jump to the last known cursor position.
         " Don't do it for commit messages, when the position is invalid, or when
@@ -218,6 +219,8 @@ call plug#end()
         :%s/\s\+$//e
         call setpos('.', save_cursor)
         call setreg('/', old_query)
+        inoremap <BS> <ESC>
+        inoremap ^H <ESC>
     endfunction
 
     function! ClearGutters()
@@ -225,9 +228,22 @@ call plug#end()
         highlight clear LineNr
     endfunction
 
-    if exists("+spelllang")
-        set spelllang=en_us
-    endif
+    function! EnterSpontaneousMode()
+
+        inoremap <buffer> <BS> <ESC>
+        " inoremap <buffer> <C> <NOP>
+        " inoremap <buffer> <ESC> <NOP>
+        " Disable backspace
+        " Disable Leaving Insert Mode
+    endfunction
+
+    function! LeaveSpontaneousMode()
+        iunmap <buffer> <BS>
+        " iunmap <buffer> <C>
+        " iunmap <buffer> <ESC>
+
+    endfunction
+
 
     set spellfile=~/.vim/spell/en.utf-8.add
 
@@ -277,9 +293,13 @@ call plug#end()
         cabbrev <silent> bd lclose\|bdelete
 
         let g:syntastic_python_python_exec = '/usr/bin/python3' " use python3
-        let g:syntastic_python_checkers = ['flake8']
+        " let g:syntastic_python_checkers = ['flake8']
         let g:syntastic_javascript_checkers = ['jshint']
         let g:syntastic_ruby_checkers = ['rubocop']
+        let g:syntastic_always_populate_loc_list = 1
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_check_on_open = 1
+        let g:syntastic_check_on_wq = 0
     endif
     " }
 
@@ -415,9 +435,30 @@ call plug#end()
     " }
 " }
 
+" Easy tab navigation
+nnoremap <C-t>     :tabnew<CR>
+nnoremap <C-S-tab> <Esc>:tabprevious<CR>
+nnoremap <C-tab>   <Esc>:tabnext<CR>
+nnoremap <C-t>     <Esc>:tabnew<CR>
+
+set textwidth=79
+
+"spell check
+nmap  <leader>s     :set invspell spelllang=en<CR>
+nmap  <leader>ss    :set    spell spelllang=en-basic<CR>
+
 "grammer check
 nmap <leader>l :LanguageToolCheck<CR>
 nmap <leader>ll :LanguageToolClear<CR>
 
+" ;q Re-hardwrap Paragraph
+nnoremap <leader>q gqip
+
+" ;J Joins hardwrapped Paragraphs
+nnoremap <leader>J vipJ
+
+
 " autogeneration of ctags
 au BufWritePost *.c,*.cpp,*.h,*py silent! !ctags -R --fields=+l &
+
+colorscheme Tomorrow-Night-Eighties
